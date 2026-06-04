@@ -361,36 +361,62 @@
       <div id="bkForm">
         <div class="bk-body">
 
-          <!-- 1. Услуга -->
-          <span class="bk-label">1. Избери услуга</span>
-          <div class="bk-services" id="bkServices"></div>
+          <div class="bk-section">
+            <span class="bk-label">1. Избери услуга</span>
+            <div class="bk-services" id="bkServices"></div>
+          </div>
 
-          <!-- 2. Телефон -->
-          <span class="bk-label">2. Твоят телефон</span>
-          <div class="bk-phone-wrap">
-            <div class="bk-field-row">
-              <input type="tel" id="bkPhone" placeholder="+359 88 123 4567"
-                     autocomplete="tel" inputmode="tel"/>
+          <div class="bk-section">
+            <span class="bk-label">2. Избери дата</span>
+            <div class="bk-cal">
+              <div class="bk-cal-nav-row">
+                <button class="bk-cal-btn" onclick="calPrev()" type="button">‹</button>
+                <span id="bkCalMonth"></span>
+                <button class="bk-cal-btn" onclick="calNext()" type="button">›</button>
+              </div>
+              <div class="bk-cal-head" id="bkCalHead"></div>
+              <div class="bk-cal-grid" id="bkCalGrid"></div>
             </div>
           </div>
 
-          <!-- Изпрати -->
+          <div class="bk-section">
+            <span class="bk-label">3. Избери час</span>
+            <div class="bk-slots" id="bkSlots">
+              <p class="bk-slots-hint">↑ Първо избери дата</p>
+            </div>
+          </div>
+
+          <div class="bk-section">
+            <span class="bk-label">4. Твоят телефон</span>
+            <div class="bk-phone-wrap">
+              <div class="bk-field-row">
+                <input type="tel" id="bkPhone" placeholder="+359 88 123 4567" autocomplete="tel" inputmode="tel"/>
+              </div>
+            </div>
+          </div>
+
           <button class="bk-send" id="bkSend" onclick="sendBooking()" type="button" disabled>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-            Изпрати заявка в WhatsApp
+            Изпрати
           </button>
-
-          <p class="bk-note">Ще получиш потвърждение от нас в WhatsApp в рамките на няколко минути.</p>
-
+          <p class="bk-note">Ще получиш потвърждение в WhatsApp в рамките на няколко минути.</p>
+          <span class="bk-cancel-link" onclick="showCancelForm()">Искам да откажа съществуваща резервация</span>
         </div>
       </div>
 
       <!-- ПОТВЪРЖДЕНИЕ -->
-      <div id="bkDone" style="display:none">
-        <div class="bk-done">
-          <div class="bk-done__icon">✓</div>
-          <h3>Заявката е изпратена!</h3>
-          <p>Отваряме WhatsApp — изпрати съобщението и ще потвърдим часа ти скоро.</p>
+      <div id="bkDone" style="display:none"></div>
+
+      <!-- ОТКАЗ ФОРМ -->
+      <div id="bkCancel" style="display:none">
+        <div class="bk-cancel-form">
+          <h3>Отказ на резервация</h3>
+          <p>Въведи кода, който получи при резервацията. Часът ще бъде освободен веднага.</p>
+          <div class="bk-cancel-row">
+            <input type="text" id="bkCancelCode" placeholder="Напр. AB12CD" maxlength="6"/>
+            <button class="bk-cancel-btn" onclick="submitCancel()" type="button">Откажи</button>
+          </div>
+          <span id="bkCancelMsg" class="bk-cancel-msg"></span>
+          <span class="bk-back-link" onclick="openBooking()">← Назад към резервация</span>
         </div>
       </div>
 
@@ -398,6 +424,9 @@
   </div>
 
   <script src="script.js"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="booking.js"></script>
 </body>
 </html>

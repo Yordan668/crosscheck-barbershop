@@ -11,6 +11,16 @@
 </head>
 <body>
 
+  <!-- LOADER -->
+  <div id="loader">
+    <div id="loaderWord"></div>
+    <div class="loader__bar"><div class="loader__fill"></div></div>
+    <p class="loader__sub">Barbershop · Варна</p>
+  </div>
+
+  <!-- GOLD PARTICLES -->
+  <canvas id="particleCanvas" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+
   <div class="cur-dot"  id="curDot"></div>
   <div class="cur-ring" id="curRing"></div>
 
@@ -85,39 +95,61 @@
         <li><a href="#contact">Контакти</a></li>
       </ul>
       <a href="https://www.fresha.com" target="_blank" class="nav__cta">Резервирай</a>
-      <button class="nav__burger" id="burger"><span></span><span></span><span></span></button>
+      <button class="nav__burger" id="burger" type="button" aria-label="Меню"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero__left">
-      <div class="hero__eyebrow">
-        <span>Barbershop · Варна · 2025</span>
+  <!-- PINNED HERO -->
+  <div class="pin-wrap" id="pinWrap">
+    <section class="hero" id="hero">
+
+      <!-- Full background media -->
+      <div class="hero__media">
+        <video class="hero__video" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+          <source src="hero-video.mp4" type="video/mp4"/>
+        </video>
+        <img class="hero__photo" src="photo2-hq.jpg" alt="CROSSCHECK"/>
+        <div class="hero__veil"></div>
       </div>
-      <h1 class="hero__title">CROSS<em>CHECK</em></h1>
-      <div class="hero__row">
-        <div class="hero__line"></div>
-        <p class="hero__desc">Прецизност. Стил. Характер. Барбършоп за модерния мъж.</p>
+
+      <!-- Progress bar -->
+      <div class="hero__progress"><div class="hero__progress-bar" id="heroProgress"></div></div>
+
+      <!-- Step 1 — название -->
+      <div class="pin-step pin-step--1" id="step1">
+        <div class="hero__eyebrow"><span>Barbershop · Варна · 2025</span></div>
+        <h1 class="hero__title">CROSS<em>CHECK</em></h1>
       </div>
-      <div class="hero__cta">
-        <a href="https://www.fresha.com" target="_blank" class="btn-dark"><span>Резервирай час</span></a>
-        <a href="#services" class="btn-outline"><span>Виж услуги</span></a>
+
+      <!-- Step 2 — услуги preview -->
+      <div class="pin-step pin-step--2" id="step2">
+        <div class="pin-step__inner">
+          <span class="eyebrow" style="color:var(--gold2)">— Нашите услуги</span>
+          <h2>Прецизност<br><em>в детайла</em></h2>
+          <ul class="pin-services">
+            <li><span>01</span><span>Мъжко Подстригване</span><span>от 10 €</span></li>
+            <li><span>02</span><span>Оформяне на Брада</span><span>от 8 €</span></li>
+            <li><span>03</span><span>Комбо Коса &amp; Брада</span><span>от 15 €</span></li>
+          </ul>
+        </div>
       </div>
-      <div class="hero__scroll">Скролни</div>
-    </div>
-    <div class="hero__right">
-      <img src="photo1.avif" alt="CROSSCHECK Barbershop"/>
-      <div class="hero__hours">
-        <h3>Работно Време</h3>
-        <ul>
-          <li><span>Пон – Пет</span><span>10:00 – 20:00</span></li>
-          <li><span>Събота</span><span>10:00 – 20:00</span></li>
-          <li><span>Неделя</span><span>10:00 – 20:00</span></li>
-        </ul>
+
+      <!-- Step 3 — CTA -->
+      <div class="pin-step pin-step--3" id="step3">
+        <div class="pin-step__inner pin-step__inner--center">
+          <h2>Готов за<br><em>нова прическа?</em></h2>
+          <div class="pin-cta">
+            <a href="https://www.fresha.com" target="_blank" class="btn-dark"><span>Резервирай час</span></a>
+            <a href="#services" class="btn-outline"><span>Виж всички услуги</span></a>
+          </div>
+          <div class="hero__hours2">
+            <span>Пон – Нед</span><span>10:00 – 20:00</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+
+    </section>
+  </div>
 
   <!-- SERVICES -->
   <section class="services" id="services">
@@ -175,7 +207,7 @@
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="about__img">
-      <img src="photo2.avif" alt="CROSSCHECK интериор"/>
+      <img src="photo2-hq.jpg" alt="CROSSCHECK интериор"/>
       <span class="about__img-label">Odesos · Greek Neighbourhood · Varna</span>
     </div>
     <div class="about__body">
@@ -193,9 +225,9 @@
         <li><span class="perk-dot"></span>Работим 7 дни в седмицата</li>
       </ul>
       <div class="about__stats" data-r="right">
-        <div class="astat"><div class="astat__n">7</div><div class="astat__l">Дни/седмица</div></div>
-        <div class="astat"><div class="astat__n">2</div><div class="astat__l">Майстори</div></div>
-        <div class="astat"><div class="astat__n">10h</div><div class="astat__l">На ден</div></div>
+        <div class="astat"><div class="astat__n" data-count="7">0</div><div class="astat__l">Дни/седмица</div></div>
+        <div class="astat"><div class="astat__n" data-count="2">0</div><div class="astat__l">Майстори</div></div>
+        <div class="astat"><div class="astat__n" data-count="10" data-suffix="h">0h</div><div class="astat__l">На ден</div></div>
       </div>
     </div>
   </section>
@@ -203,7 +235,7 @@
   <!-- GALLERY -->
   <section class="gallery">
     <div class="gallery__main">
-      <img src="photo3.avif" alt="CROSSCHECK"/>
+      <img src="photo3-hq.jpg" alt="CROSSCHECK"/>
       <div class="gallery__quote">
         <p><em>„Grooming transcends<br>the ordinary."</em></p>
       </div>
@@ -254,7 +286,7 @@
   <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="contact__hero">
-      <img src="photo1.avif" alt="CROSSCHECK"/>
+      <img src="photo1-hq.jpg" alt="CROSSCHECK"/>
       <div class="contact__hero-body">
         <span class="eyebrow" style="color:var(--gold2)">— Намерете ни</span>
         <h2>Посетете <em>CROSSCHECK</em></h2>

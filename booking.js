@@ -58,6 +58,7 @@ function openBooking() {
   renderServices();
   renderCal();
   renderSlots();
+  setupPhoneListener();
   sync();
 }
 
@@ -171,17 +172,28 @@ function selectTime(t) { state.time = t; renderSlots(); sync(); }
 
 // ── SYNC (активиране на бутона)
 function sync() {
-  const phone = document.getElementById('bkPhone')?.value.trim() || '';
-  const ok    = state.service && state.date && state.time && phone.length >= 6;
-  const btn   = document.getElementById('bkSend');
+  const phoneEl = document.getElementById('bkPhone');
+  const phone   = phoneEl ? phoneEl.value.trim() : '';
+  const ok      = !!(state.service && state.date && state.time && phone.length >= 6);
+  const btn     = document.getElementById('bkSend');
   if (btn) btn.disabled = !ok;
 }
-document.getElementById('bkPhone')?.addEventListener('input', sync);
+
+function setupPhoneListener() {
+  const phoneEl = document.getElementById('bkPhone');
+  if (phoneEl) {
+    phoneEl.removeEventListener('input', sync);
+    phoneEl.addEventListener('input', sync);
+  }
+}
 
 // ── ИЗПРАТИ РЕЗЕРВАЦИЯ
 async function sendBooking() {
-  const phone = document.getElementById('bkPhone').value.trim();
-  if (!state.service || !state.date || !state.time || !phone) return;
+  const phone = document.getElementById('bkPhone')?.value.trim();
+  if (!state.service) { alert('Моля избери услуга.'); return; }
+  if (!state.date)    { alert('Моля избери дата.'); return; }
+  if (!state.time)    { alert('Моля избери час.'); return; }
+  if (!phone || phone.length < 6) { alert('Моля въведи телефонен номер.'); return; }
 
   const svc     = SERVICES.find(s => s.id === state.service);
   const code    = Math.random().toString(36).substring(2,8).toUpperCase();

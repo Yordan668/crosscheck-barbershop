@@ -189,53 +189,71 @@ function setupPhoneListener() {
 
 // ── ИЗПРАТИ РЕЗЕРВАЦИЯ
 async function sendBooking() {
-  const phone = document.getElementById('bkPhone')?.value.trim();
-  if (!state.service) { alert('Моля избери услуга.'); return; }
-  if (!state.date)    { alert('Моля избери дата.'); return; }
-  if (!state.time)    { alert('Моля избери час.'); return; }
-  if (!phone || phone.length < 6) { alert('Моля въведи телефонен номер.'); return; }
+  try {
+    const phone = document.getElementById('bkPhone')?.value.trim();
+    if (!state.service) { alert('Моля избери услуга.'); return; }
+    if (!state.date)    { alert('Моля избери дата.'); return; }
+    if (!state.time)    { alert('Моля избери час.'); return; }
+    if (!phone || phone.length < 6) { alert('Моля въведи телефонен номер.'); return; }
 
-  const svc     = SERVICES.find(s => s.id === state.service);
-  const code    = Math.random().toString(36).substring(2,8).toUpperCase();
-  const dateObj = new Date(state.date);
-  const days    = ['Неделя','Понеделник','Вторник','Сряда','Четвъртък','Петък','Събота'];
-  const months  = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-  const dateFmt = `${days[dateObj.getDay()]} ${dateObj.getDate()}.${months[dateObj.getMonth()]}.${dateObj.getFullYear()}`;
+    const svc  = SERVICES.find(s => s.id === state.service);
+    const code = Math.random().toString(36).substring(2,8).toUpperCase();
 
-  // запис в Firebase
-  if (db) {
-    try {
-      await db.collection('bookings').add({
-        service: svc.name, date: state.date, time: state.time,
-        phone, cancelCode: code, status: 'active',
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    } catch(e) { console.warn('Firebase грешка:', e); }
+    // форматиране на датата
+    const parts   = state.date.split('-');
+    const dateObj = new Date(+parts[0], +parts[1]-1, +parts[2]);
+    const days    = ['Неделя','Понеделник','Вторник','Сряда','Четвъртък','Петък','Събота'];
+    const dateFmt = `${days[dateObj.getDay()]} ${parts[2]}.${parts[1]}.${parts[0]}`;
+
+    // запис в Firebase (ако е настроен)
+    if (db) {
+      try {
+        await db.collection('bookings').add({
+          service: svc.name, date: state.date, time: state.time,
+          phone, cancelCode: code, status: 'active',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      } catch(e) { /* Firebase не е настроен — продължаваме */ }
+    }
+
+    // ПОКАЗВАМЕ ПОТВЪРЖДЕНИЕ
+    const formEl = document.getElementById('bkForm');
+    const doneEl = document.getElementById('bkDone');
+    if (formEl) formEl.style.display = 'none';
+    if (doneEl) {
+      doneEl.innerHTML = `
+        <div class="bk-done">
+          <div class="bk-done__icon">✓</div>
+          <h3>Часът е запазен!</h3>
+          <div class="bk-done__summary">
+            <div class="bk-done__row"><span>Услуга</span><strong>${svc.name}</strong></div>
+            <div class="bk-done__row"><span>Дата</span><strong>${dateFmt}</strong></div>
+            <div class="bk-done__row"><span>Час</span><strong>${state.time}</strong></div>
+            <div class="bk-done__row"><span>Телефон</span><strong>${phone}</strong></div>
+          </div>
+          <div class="bk-done__code">
+            <span class="bk-done__code-label">Код за отказ</span>
+            <span class="bk-done__code-val">${code}</span>
+            <p>Запази този код! Нужен е ако искаш да откажеш часа.</p>
+          </div>
+        </div>`;
+      doneEl.style.display = 'block';
+    }
+
+    // WhatsApp
+    const msg = encodeURIComponent(
+      `Здравейте! Запазих час в CROSSCHECK Barbershop:\n\n` +
+      `✂️ ${svc.name}\n📅 ${dateFmt}\n🕐 ${state.time}\n📱 ${phone}\n\n` +
+      `Код за отказ: ${code}`
+    );
+    setTimeout(() => {
+      window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, '_blank');
+    }, 800);
+
+  } catch(e) {
+    console.error('Грешка при резервация:', e);
+    alert('Нещо се обърка. Моля опитай пак.');
   }
-
-  // показваме потвърждение
-  document.getElementById('bkForm').style.display = 'none';
-  document.getElementById('bkDone').innerHTML = `
-    <div class="bk-done">
-      <div class="bk-done__icon">✓</div>
-      <h3>Заявката е изпратена!</h3>
-      <div class="bk-done__summary">
-        <div class="bk-done__row"><span>Услуга</span><strong>${svc.name}</strong></div>
-        <div class="bk-done__row"><span>Дата</span><strong>${dateFmt}</strong></div>
-        <div class="bk-done__row"><span>Час</span><strong>${state.time}</strong></div>
-        <div class="bk-done__row"><span>Телефон</span><strong>${phone}</strong></div>
-      </div>
-      <div class="bk-done__code">
-        <span class="bk-done__code-label">Код за отказ на резервация</span>
-        <span class="bk-done__code-val">${code}</span>
-        <p>Запази този код! Нужен е ако искаш да откажеш часа.</p>
-      </div>
-    </div>`;
-  document.getElementById('bkDone').style.display = 'block';
-
-  // WhatsApp
-  const msg = encodeURIComponent(`Здравейте! Запазих час в CROSSCHECK:\n✂️ ${svc.name}\n📅 ${dateFmt} в ${state.time}\n📱 ${phone}\nКод: ${code}`);
-  setTimeout(() => window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, '_blank'), 700);
 }
 
 // ── ОТКАЗ НА РЕЗЕРВАЦИЯ

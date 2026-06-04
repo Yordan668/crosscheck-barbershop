@@ -352,82 +352,46 @@
         <div class="bk-header-left">
           <span class="bk-header-eyebrow">— Резервация</span>
           <h2>Запази час</h2>
-          <p>CROSSCHECK Barbershop · Варна · Гръцка махала</p>
+          <p>CROSSCHECK · Варна · Пон–Нед 10:00–20:00</p>
         </div>
         <button class="bk-close" onclick="closeBooking()" type="button">✕</button>
       </div>
 
-      <!-- Steps indicator -->
-      <div class="bk-steps">
-        <div class="bk-step active" id="bkStepDot1">
-          <div class="bk-step__dot">1</div>
-          <span class="bk-step__label">Услуга</span>
-        </div>
-        <div class="bk-step-line" id="bkLine1"></div>
-        <div class="bk-step" id="bkStepDot2">
-          <div class="bk-step__dot">2</div>
-          <span class="bk-step__label">Дата & Час</span>
-        </div>
-        <div class="bk-step-line" id="bkLine2"></div>
-        <div class="bk-step" id="bkStepDot3">
-          <div class="bk-step__dot">3</div>
-          <span class="bk-step__label">Данни</span>
-        </div>
-      </div>
-
-      <!-- Panel 1: Услуга -->
-      <div class="bk-panel active" id="bkPanel1">
+      <!-- ФОРМ -->
+      <div id="bkForm">
         <div class="bk-body">
-          <span class="bk-date-label">Избери услуга</span>
+
+          <!-- 1. Услуга -->
+          <span class="bk-label">1. Избери услуга</span>
           <div class="bk-services" id="bkServices"></div>
-        </div>
-      </div>
 
-      <!-- Panel 2: Дата & Час -->
-      <div class="bk-panel" id="bkPanel2">
-        <div class="bk-body">
-          <span class="bk-date-label">Избери дата</span>
-          <div class="bk-calendar">
-            <div class="bk-cal-header">
-              <button class="bk-cal-nav" onclick="calPrev()" type="button">‹</button>
-              <span id="bkCalMonth"></span>
-              <button class="bk-cal-nav" onclick="calNext()" type="button">›</button>
+          <!-- 2. Телефон -->
+          <span class="bk-label">2. Твоят телефон</span>
+          <div class="bk-phone-wrap">
+            <div class="bk-field-row">
+              <input type="tel" id="bkPhone" placeholder="+359 88 123 4567"
+                     autocomplete="tel" inputmode="tel"/>
             </div>
-            <div class="bk-cal-days-header" id="bkCalDaysHeader"></div>
-            <div class="bk-cal-grid" id="bkCalGrid"></div>
           </div>
-          <span class="bk-date-label">Избери час</span>
-          <div class="bk-slots" id="bkSlots">
-            <p style="color:var(--muted);font-size:.72rem;grid-column:1/-1">Първо избери дата</p>
-          </div>
+
+          <!-- Изпрати -->
+          <button class="bk-send" id="bkSend" onclick="sendBooking()" type="button" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            Изпрати заявка в WhatsApp
+          </button>
+
+          <p class="bk-note">Ще получиш потвърждение от нас в WhatsApp в рамките на няколко минути.</p>
+
         </div>
       </div>
 
-      <!-- Panel 3: Данни -->
-      <div class="bk-panel" id="bkPanel3">
-        <div class="bk-body">
-          <div class="bk-summary" id="bkSummary"></div>
-          <div class="bk-field">
-            <label for="bkName">Твоето Име</label>
-            <input type="text" id="bkName" placeholder="Иван Иванов" autocomplete="name"/>
-          </div>
-          <div class="bk-field">
-            <label for="bkPhone">Телефон за връзка</label>
-            <input type="tel" id="bkPhone" placeholder="+359 88 123 4567" autocomplete="tel"/>
-          </div>
+      <!-- ПОТВЪРЖДЕНИЕ -->
+      <div id="bkDone" style="display:none">
+        <div class="bk-done">
+          <div class="bk-done__icon">✓</div>
+          <h3>Заявката е изпратена!</h3>
+          <p>Отваряме WhatsApp — изпрати съобщението и ще потвърдим часа ти скоро.</p>
         </div>
-      </div>
-
-      <!-- Panel 4: Потвърждение -->
-      <div class="bk-panel" id="bkPanel4">
-        <div id="bkConfirmPanel"></div>
-      </div>
-
-      <!-- Footer buttons -->
-      <div class="bk-footer">
-        <button class="bk-btn bk-btn--back" id="bkBack" onclick="prevStep()" type="button" style="display:none">← Назад</button>
-        <button class="bk-btn bk-btn--next" id="bkNext" onclick="nextStep()" type="button" disabled>Напред →</button>
-        <button class="bk-btn bk-btn--confirm" id="bkConfirm" onclick="confirmBooking()" type="button" style="display:none" disabled>Изпрати резервация</button>
       </div>
 
     </div>

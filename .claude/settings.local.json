@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.fresha.com)",
+      "Bash(findstr -i \"jpg\\\\|png\\\\|jpeg\\\\|webp\")",
+      "Bash(Get-ChildItem \"C:\\\\Users\\\\Йордан\\\\Desktop\\\\барбър\" -Recurse)",
+      "Bash(Select-Object FullName)",
+      "WebFetch(domain:github.com)",
+      "Bash(gh repo *)",
+      "Bash(python -c \"from PIL import Image; print\\('PIL OK'\\)\")"
+    ]
+  }
+}

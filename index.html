@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="booking.css"/>
 </head>
 <body>
 
@@ -94,7 +95,7 @@
         <li><a href="#team">Екип</a></li>
         <li><a href="#contact">Контакти</a></li>
       </ul>
-      <a href="https://www.fresha.com" target="_blank" class="nav__cta">Резервирай</a>
+      <a href="#" onclick="openBooking();return false;" class="nav__cta">Резервирай</a>
       <button class="nav__burger" id="burger" type="button" aria-label="Меню"><span></span><span></span><span></span></button>
     </div>
   </nav>
@@ -139,7 +140,7 @@
         <div class="pin-step__inner pin-step__inner--center">
           <h2>Готов за<br><em>нова прическа?</em></h2>
           <div class="pin-cta">
-            <a href="https://www.fresha.com" target="_blank" class="btn-dark"><span>Резервирай час</span></a>
+            <a href="#" onclick="openBooking();return false;" class="btn-dark"><span>Резервирай час</span></a>
             <a href="#services" class="btn-outline"><span>Виж всички услуги</span></a>
           </div>
           <div class="hero__hours2">
@@ -160,7 +161,7 @@
       </div>
       <div class="services__top-right" data-r="right">
         <p>Всяка услуга е прецизно изпълнена от опитен майстор с внимание към всеки детайл.</p>
-        <a href="https://www.fresha.com" target="_blank" class="btn-gold">Резервирай онлайн</a>
+        <a href="#" onclick="openBooking();return false;" class="btn-gold">Резервирай онлайн</a>
       </div>
     </div>
     <div class="svc-list">
@@ -200,7 +201,7 @@
       </div>
     </div>
     <div class="services__cta">
-      <a href="https://www.fresha.com" target="_blank" class="btn-dark"><span>Резервирай онлайн</span></a>
+      <a href="#" onclick="openBooking();return false;" class="btn-dark"><span>Резервирай онлайн</span></a>
     </div>
   </section>
 
@@ -310,7 +311,7 @@
       <div class="cblock">
         <h4>Резервация</h4>
         <p>Резервирайте лесно и бързо онлайн. Незабавно потвърждение.</p>
-        <a href="https://www.fresha.com" target="_blank" class="btn-dark" style="margin-top:1.5rem;display:inline-flex"><span>Резервирай сега</span></a>
+        <a href="#" onclick="openBooking();return false;" class="btn-dark" style="margin-top:1.5rem;display:inline-flex"><span>Резервирай сега</span></a>
       </div>
       <div class="cblock">
         <h4>Адрес</h4>
@@ -337,12 +338,101 @@
       </nav>
       <div class="f-book">
         <p>Готови за нова прическа?</p>
-        <a href="https://www.fresha.com" target="_blank" class="btn-gold">Резервирай час</a>
+        <a href="#" onclick="openBooking();return false;" class="btn-gold">Резервирай час</a>
       </div>
     </div>
     <div class="footer__copy">© 2025 CROSSCHECK Barbershop. Всички права запазени.</div>
   </footer>
 
+  <!-- BOOKING MODAL -->
+  <div class="bk-overlay" id="bookingOverlay">
+    <div class="bk-modal">
+
+      <div class="bk-header">
+        <div>
+          <h2>Запази час</h2>
+          <p>CROSSCHECK Barbershop · Варна</p>
+        </div>
+        <button class="bk-close" onclick="closeBooking()" type="button">✕</button>
+      </div>
+
+      <!-- Steps indicator -->
+      <div class="bk-steps">
+        <div class="bk-step active" id="bkStepDot1">
+          <div class="bk-step__dot">1</div>
+          <span class="bk-step__label">Услуга</span>
+        </div>
+        <div class="bk-step-line" id="bkLine1"></div>
+        <div class="bk-step" id="bkStepDot2">
+          <div class="bk-step__dot">2</div>
+          <span class="bk-step__label">Дата & Час</span>
+        </div>
+        <div class="bk-step-line" id="bkLine2"></div>
+        <div class="bk-step" id="bkStepDot3">
+          <div class="bk-step__dot">3</div>
+          <span class="bk-step__label">Данни</span>
+        </div>
+      </div>
+
+      <!-- Panel 1: Услуга -->
+      <div class="bk-panel active" id="bkPanel1">
+        <div class="bk-body">
+          <span class="bk-date-label">Избери услуга</span>
+          <div class="bk-services" id="bkServices"></div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Дата & Час -->
+      <div class="bk-panel" id="bkPanel2">
+        <div class="bk-body">
+          <span class="bk-date-label">Избери дата</span>
+          <div class="bk-calendar">
+            <div class="bk-cal-header">
+              <button class="bk-cal-nav" onclick="calPrev()" type="button">‹</button>
+              <span id="bkCalMonth"></span>
+              <button class="bk-cal-nav" onclick="calNext()" type="button">›</button>
+            </div>
+            <div class="bk-cal-days-header" id="bkCalDaysHeader"></div>
+            <div class="bk-cal-grid" id="bkCalGrid"></div>
+          </div>
+          <span class="bk-date-label">Избери час</span>
+          <div class="bk-slots" id="bkSlots">
+            <p style="color:var(--muted);font-size:.72rem;grid-column:1/-1">Първо избери дата</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Данни -->
+      <div class="bk-panel" id="bkPanel3">
+        <div class="bk-body">
+          <div class="bk-summary" id="bkSummary"></div>
+          <div class="bk-field">
+            <label for="bkName">Твоето Име</label>
+            <input type="text" id="bkName" placeholder="Иван Иванов" autocomplete="name"/>
+          </div>
+          <div class="bk-field">
+            <label for="bkPhone">Телефон за връзка</label>
+            <input type="tel" id="bkPhone" placeholder="+359 88 123 4567" autocomplete="tel"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 4: Потвърждение -->
+      <div class="bk-panel" id="bkPanel4">
+        <div id="bkConfirmPanel"></div>
+      </div>
+
+      <!-- Footer buttons -->
+      <div class="bk-footer">
+        <button class="bk-btn bk-btn--back" id="bkBack" onclick="prevStep()" type="button" style="display:none">← Назад</button>
+        <button class="bk-btn bk-btn--next" id="bkNext" onclick="nextStep()" type="button" disabled>Напред →</button>
+        <button class="bk-btn bk-btn--confirm" id="bkConfirm" onclick="confirmBooking()" type="button" style="display:none" disabled>Изпрати резервация</button>
+      </div>
+
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script src="booking.js"></script>
 </body>
 </html>

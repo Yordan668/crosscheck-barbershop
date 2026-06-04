@@ -225,8 +225,8 @@ function renderSlots(date) {
     let cls = 'bk-slot';
     if (isTaken) cls += ' taken';
     if (isSel)   cls += ' selected';
-    return `<div class="${cls}" onclick="selectTime('${t}')">${t}</div>`;
-  }).join('');
+    return `<div class="${cls}" onclick="selectTime('${t}')" title="${isTaken ? 'Зает' : 'Свободен'}">${t}</div>`;
+  }).join('') || `<p class="bk-slots-empty">Няма свободни часове за тази дата</p>`;
 }
 
 function selectTime(t) {

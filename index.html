@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CROSSCHECK — Barbershop · Варна</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <div class="cur-dot"  id="curDot"></div>
+  <div class="cur-ring" id="curRing"></div>
+
+  <!-- CLIPPER -->
+  <div class="clipper-banner" id="clipperBanner" aria-hidden="true">
+    <div class="clipper-line-bg"></div>
+    <div class="clipper-wrap" id="clipperWrap">
+      <svg class="clipper-svg" viewBox="0 0 120 230" fill="none">
+        <rect x="30" y="20" width="60" height="130" rx="18" fill="#1a1a1a" stroke="#2e2e2e" stroke-width="1.5"/>
+        <ellipse cx="60" cy="20" rx="30" ry="10" fill="#222" stroke="#2e2e2e" stroke-width="1.2"/>
+        <rect x="38" y="44" width="44" height="1.5" rx="1" fill="#b8922a" opacity=".7"/>
+        <circle cx="60" cy="33" r="3" fill="#b8922a" class="led-blink"/>
+        <circle cx="60" cy="70" r="11" fill="#111" stroke="#b8922a" stroke-width="1.2"/>
+        <path d="M60 62 L60 70" stroke="#b8922a" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M53.5 65 A9 9 0 1 0 66.5 65" stroke="#b8922a" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+        <rect x="38" y="96"  width="44" height="1.5" rx="1" fill="#252525"/>
+        <rect x="38" y="104" width="44" height="1.5" rx="1" fill="#252525"/>
+        <rect x="38" y="112" width="44" height="1.5" rx="1" fill="#252525"/>
+        <rect x="38" y="120" width="44" height="1.5" rx="1" fill="#252525"/>
+        <rect x="35" y="148" width="50" height="18" rx="4" fill="#151515" stroke="#2a2a2a" stroke-width="1"/>
+        <rect x="27" y="163" width="66" height="15" rx="3" fill="#111" stroke="#2e2e2e" stroke-width="1.2"/>
+        <g fill="#383838">
+          <rect x="31" y="177" width="4" height="12" rx="1.5"/>
+          <rect x="38" y="177" width="4" height="12" rx="1.5"/>
+          <rect x="45" y="177" width="4" height="12" rx="1.5"/>
+          <rect x="52" y="177" width="4" height="12" rx="1.5"/>
+          <rect x="59" y="177" width="4" height="12" rx="1.5"/>
+          <rect x="66" y="177" width="4" height="12" rx="1.5"/>
+          <rect x="73" y="177" width="4" height="12" rx="1.5"/>
+          <rect x="80" y="177" width="4" height="12" rx="1.5"/>
+        </g>
+        <g class="blade-move" fill="#b8922a" opacity=".9">
+          <rect x="34" y="177" width="3" height="11" rx="1.5"/>
+          <rect x="41" y="177" width="3" height="11" rx="1.5"/>
+          <rect x="48" y="177" width="3" height="11" rx="1.5"/>
+          <rect x="55" y="177" width="3" height="11" rx="1.5"/>
+          <rect x="62" y="177" width="3" height="11" rx="1.5"/>
+          <rect x="69" y="177" width="3" height="11" rx="1.5"/>
+          <rect x="76" y="177" width="3" height="11" rx="1.5"/>
+        </g>
+      </svg>
+      <div class="buzz"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar__inner">
+      <div class="topbar__item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <span>ул. „Стефан Стамболов" 9, Одесос, Варна</span>
+      </div>
+      <div class="topbar__item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Пон – Нед &nbsp;·&nbsp; 10:00 – 20:00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <div class="nav__logo">
+        <span class="nav__logo-icon">✕</span>
+        <span class="nav__logo-text">CROSSCHECK</span>
+      </div>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#hero">Начало</a></li>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#about">За нас</a></li>
+        <li><a href="#team">Екип</a></li>
+        <li><a href="#contact">Контакти</a></li>
+      </ul>
+      <a href="https://www.fresha.com" target="_blank" class="nav__cta">Резервирай</a>
+      <button class="nav__burger" id="burger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__left">
+      <div class="hero__eyebrow">
+        <span>Barbershop · Варна · 2025</span>
+      </div>
+      <h1 class="hero__title">CROSS<em>CHECK</em></h1>
+      <div class="hero__row">
+        <div class="hero__line"></div>
+        <p class="hero__desc">Прецизност. Стил. Характер. Барбършоп за модерния мъж.</p>
+      </div>
+      <div class="hero__cta">
+        <a href="https://www.fresha.com" target="_blank" class="btn-dark"><span>Резервирай час</span></a>
+        <a href="#services" class="btn-outline"><span>Виж услуги</span></a>
+      </div>
+      <div class="hero__scroll">Скролни</div>
+    </div>
+    <div class="hero__right">
+      <img src="photo1.avif" alt="CROSSCHECK Barbershop"/>
+      <div class="hero__hours">
+        <h3>Работно Време</h3>
+        <ul>
+          <li><span>Пон – Пет</span><span>10:00 – 20:00</span></li>
+          <li><span>Събота</span><span>10:00 – 20:00</span></li>
+          <li><span>Неделя</span><span>10:00 – 20:00</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services__top">
+      <div data-r>
+        <span class="eyebrow">— Нашите Услуги</span>
+        <h2>Какво <em>предлагаме</em></h2>
+      </div>
+      <div class="services__top-right" data-r="right">
+        <p>Всяка услуга е прецизно изпълнена от опитен майстор с внимание към всеки детайл.</p>
+        <a href="https://www.fresha.com" target="_blank" class="btn-gold">Резервирай онлайн</a>
+      </div>
+    </div>
+    <div class="svc-list">
+      <div class="svc-item" data-r>
+        <span class="svc-num">01</span>
+        <div class="svc-body">
+          <h3>Мъжко Подстригване</h3>
+          <p>Класическо подстригване, прецизно оформено спрямо вашата форма на лице.</p>
+        </div>
+        <div class="svc-meta">
+          <span class="svc-price">10 €</span>
+          <span class="svc-time">60 мин</span>
+        </div>
+      </div>
+      <div class="svc-item" data-r>
+        <span class="svc-num">02</span>
+        <div class="svc-body">
+          <h3>Оформяне на Брада</h3>
+          <p>Скулптурно оформяне и поддръжка на брадата с финес и детайл.</p>
+        </div>
+        <div class="svc-meta">
+          <span class="svc-price">8 €</span>
+          <span class="svc-time">30 мин</span>
+        </div>
+      </div>
+      <div class="svc-item" data-r>
+        <span class="svc-num">03</span>
+        <div class="svc-body">
+          <h3>Комбо — Коса &amp; Брада</h3>
+          <p>Пълен grooming ритуал. Подстригване и прецизно оформяне на брадата в едно.</p>
+        </div>
+        <div class="svc-meta">
+          <span class="svc-price">15 €</span>
+          <span class="svc-time">60 мин</span>
+          <span class="svc-tag">Популярно</span>
+        </div>
+      </div>
+    </div>
+    <div class="services__cta">
+      <a href="https://www.fresha.com" target="_blank" class="btn-dark"><span>Резервирай онлайн</span></a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about__img">
+      <img src="photo2.avif" alt="CROSSCHECK интериор"/>
+      <span class="about__img-label">Odesos · Greek Neighbourhood · Varna</span>
+    </div>
+    <div class="about__body">
+      <div data-r="right">
+        <span class="eyebrow">— Нашата История</span>
+        <h2>Повече от<br><em>бръснарница</em></h2>
+      </div>
+      <div class="about__rule"></div>
+      <p data-r="right">В CROSSCHECK grooming-ът излиза извън обичайното. Прецизни прически, експертно оформяне на брада и атмосфера, в която се чувстваш добре.</p>
+      <p data-r="right">Барбършопът е създаден за модерния мъж с усет към детайла.</p>
+      <ul class="about__perks" data-r="right">
+        <li><span class="perk-dot"></span>Незабавно потвърждение при резервация</li>
+        <li><span class="perk-dot"></span>Наличен паркинг пред обекта</li>
+        <li><span class="perk-dot"></span>Близо до обществен транспорт</li>
+        <li><span class="perk-dot"></span>Работим 7 дни в седмицата</li>
+      </ul>
+      <div class="about__stats" data-r="right">
+        <div class="astat"><div class="astat__n">7</div><div class="astat__l">Дни/седмица</div></div>
+        <div class="astat"><div class="astat__n">2</div><div class="astat__l">Майстори</div></div>
+        <div class="astat"><div class="astat__n">10h</div><div class="astat__l">На ден</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery">
+    <div class="gallery__main">
+      <img src="photo3.avif" alt="CROSSCHECK"/>
+      <div class="gallery__quote">
+        <p><em>„Grooming transcends<br>the ordinary."</em></p>
+      </div>
+    </div>
+    <div class="gallery__stats">
+      <div class="gstat" data-r><span class="gstat__n">7</span><span class="gstat__l">Дни в седмицата</span></div>
+      <div class="gstat" data-r><span class="gstat__n">2</span><span class="gstat__l">Опитни майстори</span></div>
+      <div class="gstat" data-r><span class="gstat__n">10h</span><span class="gstat__l">На ден за вас</span></div>
+      <div class="gstat" data-r><span class="gstat__n">∞</span><span class="gstat__l">Внимание към детайла</span></div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team" id="team">
+    <div class="team__top">
+      <div data-r>
+        <span class="eyebrow">— Нашият Екип</span>
+        <h2>Запознайте се с <em>майсторите</em></h2>
+      </div>
+      <p data-r="right">Всеки майстор е подбран за своята прецизност, усет към стила и отношение към клиента.</p>
+    </div>
+    <div class="team__grid">
+      <div class="team__card" data-r="left" style="transition-delay:.0s">
+        <div class="team__avatar"><div class="team__avatar-letter">Д</div></div>
+        <div class="team__foot">
+          <span class="team__name">Денислав</span>
+          <span class="team__role">Barber</span>
+        </div>
+      </div>
+      <div class="team__card team__card--chief" data-r="left" style="transition-delay:.15s">
+        <div class="team__crown">
+          <svg viewBox="0 0 40 24" fill="none">
+            <path d="M2 22 L8 6 L16 14 L20 2 L24 14 L32 6 L38 22 Z" stroke="#b8922a" stroke-width="1.4" stroke-linejoin="round" fill="rgba(184,146,42,.08)"/>
+            <circle cx="2"  cy="22" r="1.5" fill="#b8922a"/>
+            <circle cx="20" cy="2"  r="1.5" fill="#b8922a"/>
+            <circle cx="38" cy="22" r="1.5" fill="#b8922a"/>
+          </svg>
+        </div>
+        <div class="team__avatar"><div class="team__avatar-letter">P</div></div>
+        <div class="team__foot">
+          <span class="team__name">Preslav</span>
+          <span class="team__role">Chief Barber</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact__hero">
+      <img src="photo1.avif" alt="CROSSCHECK"/>
+      <div class="contact__hero-body">
+        <span class="eyebrow" style="color:var(--gold2)">— Намерете ни</span>
+        <h2>Посетете <em>CROSSCHECK</em></h2>
+        <p>ул. „Стефан Стамболов" 9 · Одесос · Гръцка махала · Варна</p>
+        <a href="https://maps.google.com/?q=Stefan+Stambolov+9+Varna" target="_blank" class="btn-outline-d" style="margin-top:1.5rem;border-color:rgba(255,255,255,.35);color:#fff;display:inline-block;font-size:.56rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.8rem 2rem;transition:background .3s">Виж на картата</a>
+      </div>
+    </div>
+    <div class="contact__grid">
+      <div class="cblock">
+        <h4>Работно Време</h4>
+        <ul class="hours-list">
+          <li><span>Понеделник</span><em>10:00 – 20:00</em></li>
+          <li><span>Вторник</span><em>10:00 – 20:00</em></li>
+          <li><span>Сряда</span><em>10:00 – 20:00</em></li>
+          <li><span>Четвъртък</span><em>10:00 – 20:00</em></li>
+          <li><span>Петък</span><em>10:00 – 20:00</em></li>
+          <li><span>Събота</span><em>10:00 – 20:00</em></li>
+          <li><span>Неделя</span><em>10:00 – 20:00</em></li>
+        </ul>
+      </div>
+      <div class="cblock">
+        <h4>Резервация</h4>
+        <p>Резервирайте лесно и бързо онлайн. Незабавно потвърждение.</p>
+        <a href="https://www.fresha.com" target="_blank" class="btn-dark" style="margin-top:1.5rem;display:inline-flex"><span>Резервирай сега</span></a>
+      </div>
+      <div class="cblock">
+        <h4>Адрес</h4>
+        <p>ул. „Стефан Стамболов" 9<br>Одесос, Гръцка махала<br>Варна, България</p>
+        <a href="https://maps.google.com/?q=Stefan+Stambolov+9+Varna" target="_blank" class="btn-outline" style="margin-top:1.5rem;display:inline-flex"><span>Google Maps</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="f-brand">
+        <span class="f-icon">✕</span>
+        <span class="f-name">CROSSCHECK</span>
+        <p class="f-sub">Barbershop · Варна · Гръцка махала</p>
+      </div>
+      <nav class="f-nav">
+        <a href="#hero">Начало</a>
+        <a href="#services">Услуги</a>
+        <a href="#about">За нас</a>
+        <a href="#team">Екип</a>
+        <a href="#contact">Контакти</a>
+      </nav>
+      <div class="f-book">
+        <p>Готови за нова прическа?</p>
+        <a href="https://www.fresha.com" target="_blank" class="btn-gold">Резервирай час</a>
+      </div>
+    </div>
+    <div class="footer__copy">© 2025 CROSSCHECK Barbershop. Всички права запазени.</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
